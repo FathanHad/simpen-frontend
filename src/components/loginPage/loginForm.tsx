@@ -1,11 +1,11 @@
 "use client";
-
 import React from "react";
 import Image from "next/image";
 
 import { useMutation } from "react-query";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useToken } from "../../common/hooks/useToken";
 
 // font and css
 import { InterMedium, InterReguler } from "../../font/font";
@@ -13,11 +13,13 @@ import styles from "./loginForm.module.css";
 
 // import images
 import logo from "../../../public/Logo.png";
+import { get } from "http";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const { setPenggunaToken, getPenggunaToken } = useToken();
   const router = useRouter();
 
   const { mutateAsync: loginMutation, data } = useMutation({
@@ -34,8 +36,7 @@ export const LoginForm = () => {
       }).then((res) => res.json()),
     onSuccess: (data) => {
       if (data.code == 200) {
-        console.log(data.content);
-        document.cookie = `Authorization=${data.content}`;
+        setPenggunaToken(data.content);
         router.push("/dashboard");
       } else if (data.code == 401) {
         setError("Incorrect email or password.");
