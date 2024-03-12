@@ -46,7 +46,7 @@ const Navbar = () => {
                 <a href="/#" className="text-white text-xl">
                   Jenis Kelas
                 </a>
-                <a href="/#" className="text-white text-xl">
+                <a href="/kelas" className="text-white text-xl">
                   Kelas
                 </a>
                 <a href="/#" className="text-white text-xl">
@@ -57,7 +57,7 @@ const Navbar = () => {
 
             {role === "operasional" && (
               <div className="flex space-x-4 pt-2 pl-7">
-                <a href="/#" className="text-white text-xl">
+                <a href="/kelas" className="text-white text-xl">
                   Kelas
                 </a>
                 <a href="/#" className="text-white text-xl">
@@ -71,7 +71,7 @@ const Navbar = () => {
 
             {role === "akademik" && (
               <div className="flex space-x-4 pt-2 pl-7">
-                <a href="/#" className="text-white text-xl">
+                <a href="/kelas" className="text-white text-xl">
                   Kelas
                 </a>
                 <a href="/#" className="text-white text-xl">
@@ -85,7 +85,7 @@ const Navbar = () => {
 
             {role === "pengajar" && (
               <div className="flex space-x-4 pt-2 pl-7">
-                <a href="/#" className="text-white text-xl">
+                <a href="/kelas" className="text-white text-xl">
                   Kelas
                 </a>
                 <a href="/#" className="text-white text-xl">
