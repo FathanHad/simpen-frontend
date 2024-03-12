@@ -15,6 +15,16 @@ import CalendarIcon from "../../../common/components/icons/CalendarIcon";
 import Select from "react-select";
 import { MuridSelect } from "../../../common/types/murid";
 
+const daysOfWeek = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
 const Page = () => {
   const fetchWithToken = useFetchWithToken();
   const { id } = useParams();
@@ -181,6 +191,32 @@ const Page = () => {
                 </div>
               </div>
             </div>
+          </div>
+
+          <div className="flex flex-row">
+            {daysOfWeek.map((day) => (
+              <div key={day} className="flex items-center mr-4">
+                <input
+                  disabled
+                  type="checkbox"
+                  className="bg-base -mb-0.5 p-2 w-full border rounded-md"
+                />
+                <label className="block font-medium text-neutral/70 ml-0.5">
+                  {day}
+                </label>
+              </div>
+            ))}
+          </div>
+
+          <div>
+            <label className="block font-medium text-neutral/70">Jam</label>
+            <input
+              disabled
+              type="text"
+              value="19:00"
+              name="platform"
+              className=" read-only:text-neutral/60 bg-neutral/5 mt-1 p-2 w-full border rounded-md"
+            />
           </div>
 
           <div className="flex flex-row gap-4">
