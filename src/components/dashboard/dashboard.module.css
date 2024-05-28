@@ -1,0 +1,90 @@
+.card1 {
+  border-radius: 8px;
+  background: #215e9b;
+  width: 53vw;
+  height: 16vh;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add box shadow */
+}
+
+.card2 {
+  border-radius: 8px;
+  background: #ffffff;
+  /* width: 27vw; */
+  /* height: 70vh; */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add box shadow */
+}
+
+.card3 {
+  border-radius: 8px;
+  background: #ffffff;
+  width: 22.4vw;
+  height: 9vh;
+  border: 1px solid #000000; /* Add border with desired color */
+  margin-right: 10px;
+}
+
+.heading1 {
+  font-size: 30px;
+}
+
+.heading_user {
+  font-size: 20px;
+}
+
+.heading_announcement {
+  font-size: 16px;
+}
+
+.announcement_title {
+  font-size: 20px;
+}
+
+.announcement_date {
+  font-size: 14px;
+}
+
+.modal {
+  border-radius: 8px;
+  background: #ffffff;
+  width: 60vw;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add box shadow */
+}
+
+.modal_tx_title {
+  font-size: 25px;
+}
+
+.modal_tx_time {
+  font-size: 14px;
+}
+
+.modal_tx_paragraph {
+  font-size: 17px;
+}
+
+.btn {
+  border-radius: 6px;
+  background: var(--Blue, #66a2dc);
+}
+
+.btn_tx {
+  color: var(--Primary-Text-Color, #ffffff);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+}
+
+.create_button {
+  border-radius: 15px;
+  background: var(--Blue, #66a2dc);
+}
+
+.upload_button {
+  border-radius: 15px;
+  background: var(--Blue, #66a2dc);
+}
+
+.delete_button {
+  border-radius: 8px;
+  background: var(--Blue, #cb4c4b);
+}

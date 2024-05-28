@@ -14,7 +14,7 @@ const useFetchWithToken = () => {
       (options as { headers?: HeadersInit }).headers || {}
     );
     if (token) {
-      headers.append("Authorization", `${token}`);
+      headers.append("Authorization", `Bearer ${token}`);
     }
 
     if (body) {
@@ -26,6 +26,10 @@ const useFetchWithToken = () => {
 
     url = `${process.env.NEXT_PUBLIC_API_URL}${url}`;
     const response = await fetch(url, newOptions);
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
     return response;
   };
 
