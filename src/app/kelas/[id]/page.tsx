@@ -1,98 +1,70 @@
 "use client";
-
 import { useParams } from "next/navigation";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "react-query";
-import { useState } from "react";
+
+import DetailKelas from "../../../components/DetailKelas/DetailKelas";
+import { useToken } from "../../../common/hooks/useToken";
+import IsLoggedIn from "../../../common/utils/IsLoggedIn";
 import useFetchWithToken from "../../../common/hooks/fetchWithToken";
-import { json } from "stream/consumers";
+import { useMutation } from "react-query";
 
 const Page = () => {
-  const fetchWithToken = useFetchWithToken();
   const { id } = useParams();
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["kelasDetail"],
-    queryFn: () => fetchWithToken(`/kelas/${id}`).then((res) => res.json()),
-  });
+  const { parseToken } = useToken();
+  const claims = parseToken();
+  const role = claims["role"];
+  const fetchWithToken = useFetchWithToken();
 
   const { mutateAsync: deleteMutation } = useMutation({
     mutationFn: () =>
       fetchWithToken(`/kelas/${id}`, "DELETE").then((res) => res.json()),
-    onSuccess: (data) => {
-      console.log(data);
-      // Here, you might want to redirect or refetch data
-    },
   });
 
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this class?")) {
       await deleteMutation();
-      // Redirect or handle post-delete logic here
     }
-  };
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error || !data) {
-    return <div>Error fetching class details.</div>;
-  }
-
-  const {
-    programName,
-    jenisKelasName,
-    listSesi,
-    tanggalMulai,
-    tanggalSelesai,
-    pengajarId,
-    linkGroup,
-    listMurid,
-    level,
-    platform,
-  } = data.content;
-
-  // Function to convert timestamps to readable dates
-  const formatDate = (timestamp) => {
-    const date = new Date(timestamp);
-    return date.toLocaleDateString("en-US");
   };
 
   return (
     <div>
-      <button
-        onClick={handleDelete}
-        style={{ marginTop: "20px", backgroundColor: "red", color: "white" }}
-      >
-        Delete Class
-      </button>
-      <h1>ID: {id}</h1>
-      <h2>
-        {programName} - {jenisKelasName}
-      </h2>
-      <div>Start Date: {formatDate(tanggalMulai)}</div>
-      <div>End Date: {formatDate(tanggalSelesai)}</div>
-      <div>Teacher ID: {pengajarId}</div>
-      <div>
-        Group Link: <a href={linkGroup}>{linkGroup}</a>
-      </div>
-      <div>Level: {level}</div>
-      <div>Platform: {platform}</div>
-      <div>
-        <h3>Students:</h3>
-        <ul>
-          {listMurid.map((murid, index) => (
-            <li key={index}>{murid}</li>
-          ))}
-        </ul>
-      </div>
+      {(role === "superadmin" ||
+        role === "akademik" ||
+        role === "operasional") && (
+        <DetailKelas
+          buttons={
+            <div className="flex justify-center py-7 gap-4">
+              <button className="bg-info text-white px-4 py-2 rounded-md hover:bg-infoHover">
+                <a href={`/kelas/${id}/absen`}> Absensi Kelas </a>
+              </button>
+              <button className="bg-warning text-white px-4 py-2 rounded-md hover:bg-warningHover">
+                <a href={`/kelas/${id}/edit`}>Ubah Detail Kelas</a>
+              </button>
+              <button
+                onClick={handleDelete}
+                className="bg-error text-white px-4 py-2 rounded-md hover:bg-errorHover"
+              >
+                Hapus Kelas
+              </button>
+            </div>
+          }
+        />
+      )}
+      {role === "pengajar" && (
+        <DetailKelas
+          buttons={
+            <div className="flex justify-center py-7 gap-4">
+              <button className="bg-info text-white px-4 py-2 rounded-md hover:bg-infoHover">
+                <a href={`/error/construction`}> Zoom Kelas</a>
+              </button>
+              <button className="bg-warning text-white px-4 py-2 rounded-md hover:bg-warningHover">
+                <a href={`/kelas/${id}/absen`}>Absensi Kelas</a>
+              </button>
+            </div>
+          }
+        />
+      )}
     </div>
   );
 };
 
-export default Page;
+export default IsLoggedIn(Page);
