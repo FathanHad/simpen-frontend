@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 /**
  * @typedef {Object} UseTokenFeatures
@@ -12,7 +13,8 @@ import Cookies from "js-cookie";
  */
 export const useToken = () => {
   const setPenggunaToken = (token) => {
-    Cookies.set("Authorization", token);
+    console.log(token);
+    Cookies.set("Authorization", token.split(" ")[1]);
   };
   const getPenggunaToken = () => {
     return Cookies.get("Authorization");
@@ -20,6 +22,19 @@ export const useToken = () => {
   const removePenggunaToken = () => {
     Cookies.remove("Authorization");
   };
+  const parseToken = () => {
+    const token = getPenggunaToken();
+    if (token === undefined) {
+      return null;
+    }
+    const decodedToken = jwtDecode(token);
+    return decodedToken;
+  };
 
-  return { setPenggunaToken, getPenggunaToken, removePenggunaToken };
+  return {
+    setPenggunaToken,
+    getPenggunaToken,
+    removePenggunaToken,
+    parseToken,
+  };
 };

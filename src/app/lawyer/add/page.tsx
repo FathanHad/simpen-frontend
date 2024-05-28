@@ -1,14 +1,6 @@
 "use client";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useMutation,
-  useQuery,
-} from "react-query";
-import { useState } from "react";
-import { LawyerForm } from "../../../components/LawyerPage/lawyerForm";
+import { LawyerForm } from "../../../components/lawyerPage/lawyerForm";
 
 export default function Page() {
-  return;
-  <LawyerForm />;
+  return <LawyerForm />;
 }
